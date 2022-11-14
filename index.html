@@ -13,11 +13,23 @@
     <div class="container">
       <h1 class="title">To-Do List</h1>
       <form action="#" id="form">
-        <input required pattern="^[^\s]+(\s.*)?$" type="text" class="text" id="taskInput" placeholder="new task">
+        <input required pattern="^[^\s]+(\s.*)?$" type="text" class="text" id="taskInput" placeholder="new todo">
         <button class="button">Add</button>
       </form>
-      <ul id="taskList">
-        <!-- <li class="block__text"></li> -->
+      <ul id="taskList" class="list">
+        <!-- <li class="block__text">
+          <div class="text__wrapper">
+            <span></span>
+          </div>
+          <div class="button__wrapper">
+            <button class="btn__icon complete">
+              <img src="icons/yes.png" alt="pic">
+            </button>
+            <button class="btn__icon close">
+              <img src="icons/no.png" alt="pic">
+            </button>
+          </div>
+        </li> -->
       </ul>
     </div>
   </div>
