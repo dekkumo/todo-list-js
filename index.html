@@ -12,11 +12,13 @@
   <div class="wrapper">
     <div class="container">
       <h1 class="title">To-Do List</h1>
-      <form action="#" class="form">
-        <input type="text" class="text" placeholder="new task">
+      <form action="#" id="form">
+        <input required pattern="^[^\s]+(\s.*)?$" type="text" class="text" id="taskInput" placeholder="new task">
         <button class="button">Add</button>
       </form>
-      <!-- <div class="block__text"></div> -->
+      <ul id="taskList">
+        <!-- <li class="block__text"></li> -->
+      </ul>
     </div>
   </div>
   <script src="script/index.js"></script>
