@@ -24,19 +24,19 @@ function addTask(event) {
                           <img src="icons/no.png" alt="pic">
                         </button>
                       </div>
-                      </li>`
+                    </li>`
 
   taskList.insertAdjacentHTML('beforeend', taskHtml); // добавляем задачу на страницу
 
+  const close = document.querySelectorAll('.close');
+
+  for (let i = 0; i < close.length; i++) {
+    close[i].addEventListener('click', closeTask);
+  }
+
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
-  taskInput.focus();
+  taskInput.focus('click', closeTask);
 }
-
-
-
-const close = document.querySelector('.close');
-
-taskList.addEventListener('click', closeTask);
 
 function closeTask(event) {
   let element = event.target.closest('.block__text'); 
