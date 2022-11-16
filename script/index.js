@@ -28,21 +28,15 @@ function addTask(event) {
 
   taskList.insertAdjacentHTML('beforeend', taskHtml); // добавляем задачу на страницу
 
-  const closeBtn = document.querySelectorAll('.close');
-
-  for (let i = 0; i < closeBtn.length; i++) {
-    closeBtn[i].addEventListener('click', closeTask);
-  }
-
-
-  const completeBtn = document.querySelectorAll('.complete');
-
-  for (let i = 0; i < completeBtn.length; i++) {
-    completeBtn[i].addEventListener('click', completeTask);
+  const todo = document.querySelectorAll('.block__text');
+  
+  for (let i = 0; i < todo.length; i++) {
+    let closeBtn = todo[i].querySelector('.close').addEventListener('click', closeTask);
+    let completeBtn = todo[i].querySelector('.complete').addEventListener('click', completeTask)
   }
 
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
-  taskInput.focus('click', closeTask);
+  taskInput.focus();
 }
 
 function closeTask(event) {
