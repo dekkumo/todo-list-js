@@ -31,8 +31,8 @@ function addTask(event) {
   const todo = document.querySelectorAll('.block__text');
   
   for (let i = 0; i < todo.length; i++) {
-    let closeBtn = todo[i].querySelector('.close').addEventListener('click', closeTask);
-    let completeBtn = todo[i].querySelector('.complete').addEventListener('click', completeTask)
+    todo[i].querySelector('.close').addEventListener('click', closeTask);
+    todo[i].querySelector('.complete').addEventListener('click', completeTask)
   }
 
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
