@@ -97,7 +97,7 @@ body {
   width: 300px;
   border: 1px solid rgb(57, 143, 124);
   border-radius: 5px;
-  margin: 0 10px 80px 0;
+  margin: 0 10px 60px 0;
 }
 
 input {
@@ -119,29 +119,65 @@ input {
 }
 
 .block__text {
+  position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 35px;
   width: 370px;
   font-size: 13px;
   font-weight: 500;
-  padding: 0 15px;
+  padding: 0 48px 0 15px;
   background-color: rgb(195, 204, 202);
+  color: rgb(74, 117, 103);
   border: 1px solid rgb(57, 143, 124);
   border-radius: 5px;
-  overflow: scroll;
   margin-bottom: 15px;
 }
-.block__text::-webkit-scrollbar {
-  height: 4px;
+
+.text__wrapper {
+  height: 35px;
+  width: 290px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
 }
-.block__text::-webkit-scrollbar-track {
+.text__wrapper::-webkit-scrollbar {
+  height: 2px;
+}
+.text__wrapper::-webkit-scrollbar-track {
   background: transparent;
 }
-.block__text::-webkit-scrollbar-thumb {
-  border-radius: 7px;
-  background-color: rgb(192, 188, 188);
+.text__wrapper::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgb(57, 143, 124);
 }
-.block__text::-webkit-scrollbar-corner {
+.text__wrapper::-webkit-scrollbar-corner {
   display: none;
+}
+
+.button__wrapper {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+}
+
+.btn__icon {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(136, 187, 183);
+  border-radius: 3px;
+  transition: all 0.3s ease 0s;
+}
+.btn__icon:hover {
+  background-color: rgb(130, 201, 192);
+}
+.btn__icon:last-child {
+  margin-right: 0;
+}
+.btn__icon img {
+  margin-top: 3px;
+  height: 10px;
+  width: 10px;
 }/*# sourceMappingURL=style.css.map */
