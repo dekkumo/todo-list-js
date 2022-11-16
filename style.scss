@@ -96,6 +96,11 @@ input {
   border-radius: 5px;
   margin-bottom: 15px;
 }
+.block__text._checked {
+  text-decoration: line-through;
+  color: rgb(72, 139, 125);
+  background-color: rgb(185, 216, 165);
+}
 .text__wrapper {
   height: 35px;
   width: 290px;

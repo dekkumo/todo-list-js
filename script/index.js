@@ -34,6 +34,13 @@ function addTask(event) {
     closeBtn[i].addEventListener('click', closeTask);
   }
 
+
+  const completeBtn = document.querySelectorAll('.complete');
+
+  for (let i = 0; i < completeBtn.length; i++) {
+    completeBtn[i].addEventListener('click', completeTask);
+  }
+
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
   taskInput.focus('click', closeTask);
 }
@@ -41,4 +48,9 @@ function addTask(event) {
 function closeTask(event) {
   let element = event.target.closest('.block__text'); 
   element.remove()
+}
+
+function completeTask(event) {
+  let check = event.target.closest('.block__text');
+  check.classList.toggle('_checked') 
 }
