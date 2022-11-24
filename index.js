@@ -61,8 +61,7 @@ function closeTask(event, id) {
   element.remove();
   
   globalArr = globalArr.filter((el, i, arr) => {
-    if (el.id !== id) return el;
-    console.log('это айди элемента', el.id)
+    return el.id !== id;
   })
 
   console.log(globalArr)
@@ -93,8 +92,8 @@ function renderTodos(globalArr) {
 
 
   globalArr.forEach((el, i, arr) => {
-    let taskHtml = `<li class="block__text">
-                      <div class="text__wrapper">
+    let taskHtml = `<li class="block__text ${el.type === 'completed' ? '_checked' : ''}">
+                      <div class="text__wrapper" >
                         <span>${el.text}</span>
                       </div>
                       <div class="button__wrapper">
@@ -107,5 +106,41 @@ function renderTodos(globalArr) {
                       </div>
                     </li>`
     taskList.insertAdjacentHTML('beforeend', taskHtml);
+
+    let newTodo = document.querySelectorAll('.block__text');
+
+    newTodo[newTodo.length-1].querySelector('.complete').addEventListener('click', (event) => completeTask(event, el.id));
+    newTodo[newTodo.length-1].querySelector('.close').addEventListener('click', (event) => closeTask(event, el.id));
   })
+}
+
+
+const select = document.querySelector('#select');
+
+select.addEventListener('change', chooseSelect);
+
+function chooseSelect(event) {
+  let selectValue = event.target.value;
+
+  let sortedTodos = [];
+
+  switch (selectValue) {
+    case 'All':
+      sortedTodos = globalArr;
+      break;
+    case 'Completed':
+      sortedTodos = globalArr.filter((el, i, arr) => {
+        return el.type === 'completed';
+      })
+      console.log(sortedTodos)
+      break;
+    case 'Uncompleted':
+      sortedTodos = globalArr.filter((el, i, arr) => {
+        return el.type === 'uncompleted';
+      })
+      console.log(sortedTodos)
+      break;
+  }
+
+  renderTodos(sortedTodos);
 }
