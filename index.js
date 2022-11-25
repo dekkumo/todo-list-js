@@ -1,4 +1,4 @@
-const myForm = document.querySelector('#form');
+const form = document.querySelector('#form');
 
 const taskInput = document.querySelector('#taskInput');
 
@@ -6,12 +6,12 @@ const taskList = document.querySelector('#taskList');
 
 let globalArr = [];
 
-myForm.addEventListener('submit', addTask);
+form.addEventListener('submit', addTask);
 
 function addTask(event) {
   event.preventDefault(); // отменяет стандартное поведение
 
-  const taskText = taskInput.value; // текс задачи из поля ввода
+  const taskText = taskInput.value; // текст задачи из поля ввода
 
   let taskHtml = `<li class="block__text">
                       <div class="text__wrapper">
@@ -40,15 +40,11 @@ function addTask(event) {
 
   globalArr.push(newObject);
 
-  console.log(globalArr)
-
   
   const todo = document.querySelectorAll('.block__text');
   
-  
   todo[todo.length-1].querySelector('.close').addEventListener('click', (event) => closeTask(event, id));
   todo[todo.length-1].querySelector('.complete').addEventListener('click', (event)=> completeTask(event, id));
-  
   
 
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
@@ -56,27 +52,22 @@ function addTask(event) {
 }
 
 function closeTask(event, id) {
-  console.log('это айди', id)
-  let element = event.target.closest('.block__text'); 
-  element.remove();
+  let elementTodo = event.target.closest('.block__text');
+  elementTodo.remove();
   
   globalArr = globalArr.filter((el, i, arr) => {
     return el.id !== id;
   })
-
-  console.log(globalArr)
 }
 
 function completeTask(event, id) {
-  let check = event.target.closest('.block__text');
-  check.classList.toggle('_checked');
+  let elementCheck = event.target.closest('.block__text');
+  elementCheck.classList.toggle('_checked');
 
   globalArr.forEach((el, i, arr) => {
     if (el.id === id && el.type === 'uncompleted') return el.type = 'completed';
     if (el.id === id && el.type === 'completed') return el.type = 'uncompleted';
   })
-
-  console.log(globalArr)
 }
 
 
@@ -107,40 +98,75 @@ function renderTodos(globalArr) {
                     </li>`
     taskList.insertAdjacentHTML('beforeend', taskHtml);
 
-    let newTodo = document.querySelectorAll('.block__text');
+    let todoList = document.querySelectorAll('.block__text');
 
-    newTodo[newTodo.length-1].querySelector('.complete').addEventListener('click', (event) => completeTask(event, el.id));
-    newTodo[newTodo.length-1].querySelector('.close').addEventListener('click', (event) => closeTask(event, el.id));
+    todoList[todoList.length-1].querySelector('.complete').addEventListener('click', (event) => completeTask(event, el.id));
+    todoList[todoList.length-1].querySelector('.close').addEventListener('click', (event) => closeTask(event, el.id));
   })
 }
 
 
 const select = document.querySelector('#select');
 
-select.addEventListener('change', chooseSelect);
+select.addEventListener('change', filterAndSearchTodo);
 
-function chooseSelect(event) {
-  let selectValue = event.target.value;
+function chooseSelect(globalArrCopy) {
+  let selectValue = select.value;
 
   let sortedTodos = [];
 
   switch (selectValue) {
     case 'All':
-      sortedTodos = globalArr;
+      sortedTodos = globalArrCopy;
       break;
     case 'Completed':
-      sortedTodos = globalArr.filter((el, i, arr) => {
+      sortedTodos = globalArrCopy.filter((el, i, arr) => {
         return el.type === 'completed';
       })
-      console.log(sortedTodos)
       break;
     case 'Uncompleted':
-      sortedTodos = globalArr.filter((el, i, arr) => {
+      sortedTodos = globalArrCopy.filter((el, i, arr) => {
         return el.type === 'uncompleted';
       })
-      console.log(sortedTodos)
       break;
   }
 
-  renderTodos(sortedTodos);
+  return sortedTodos;
+}
+
+
+const searchInput = document.querySelector('#searchInput');
+
+const searchBtn = document.querySelector('.search__button');
+
+searchBtn.addEventListener('click', clearInput);
+
+function clearInput(event) {
+  searchInput.value = '';
+}
+
+
+searchInput.addEventListener('input', filterAndSearchTodo);
+
+function searchTodo(globalArrCopy) {
+  let searchText = searchInput.value.toLowerCase();
+
+  let searchArr = [];
+
+  searchArr = globalArrCopy.filter(el => {
+    return el.text.includes(searchText);
+  })
+
+  return searchArr;
+}
+
+
+function filterAndSearchTodo(event) {
+  let globalArrCopy = [...globalArr];
+
+  globalArrCopy = chooseSelect(globalArrCopy);
+
+  globalArrCopy = searchTodo(globalArrCopy);
+
+  renderTodos(globalArrCopy);
 }
