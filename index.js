@@ -6,6 +6,12 @@ const taskList = document.querySelector('#taskList');
 
 let globalArr = [];
 
+if (localStorage.getItem('globalArr')) {
+  globalArr = JSON.parse(localStorage.getItem('globalArr'));
+
+  renderTodos(globalArr);
+}
+
 form.addEventListener('submit', addTask);
 
 function addTask(event) {
@@ -49,6 +55,8 @@ function addTask(event) {
 
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
   taskInput.focus();
+
+  saveToLocalStorage()
 }
 
 function closeTask(event, id) {
@@ -58,6 +66,8 @@ function closeTask(event, id) {
   globalArr = globalArr.filter((el, i, arr) => {
     return el.id !== id;
   })
+
+  saveToLocalStorage()
 }
 
 function completeTask(event, id) {
@@ -68,6 +78,8 @@ function completeTask(event, id) {
     if (el.id === id && el.type === 'uncompleted') return el.type = 'completed';
     if (el.id === id && el.type === 'completed') return el.type = 'uncompleted';
   })
+
+  saveToLocalStorage()
 }
 
 
@@ -169,4 +181,9 @@ function filterAndSearchTodo(event) {
   globalArrCopy = searchTodo(globalArrCopy);
 
   renderTodos(globalArrCopy);
+}
+
+
+function saveToLocalStorage() {
+  localStorage.setItem('globalArr', JSON.stringify(globalArr));
 }
