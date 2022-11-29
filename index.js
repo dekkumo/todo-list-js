@@ -189,15 +189,42 @@ function saveToLocalStorage() {
 }
 
 
+const portionSize = 5;
+
+let offset = 0;
+
+
+const loadButton = document.querySelector('.load__button');
+
+loadButton.addEventListener('click', loadTodos);
+
+async function loadTodos(event) {
+  let loadTodosArr = [];
+  loadTodosArr = await getTodo();
+
+  let newLoadTodosArr = loadTodosArr.map((el, i, arr) => {
+    return {
+      id: el.id,
+      text: el.title,
+      isComplete: el.completed,
+    };
+  })
+
+  globalArr = [...globalArr, ...newLoadTodosArr];
+
+  filterAndSearchTodo();
+
+  offset = offset + 5;
+}
 
 
 async function getTodo() {
   try {
-    let response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10');
+    let response = await fetch(`https://jsonplaceholder.typicode.com/todos?_start=${offset}&_limit=${portionSize}`);
     let todos = await response.json();
-    console.log(todos);
+    return todos;
   } catch(err) {
-    console.log(err);
+    alert('Ошибка загрузки');
   }
 }
 getTodo();
