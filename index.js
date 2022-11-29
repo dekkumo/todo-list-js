@@ -199,6 +199,11 @@ const loadButton = document.querySelector('.load__button');
 loadButton.addEventListener('click', loadTodos);
 
 async function loadTodos(event) {
+
+  const loader = document.querySelector('.loading');
+
+  loader.classList.add('_show');
+
   let loadTodosArr = [];
   loadTodosArr = await getTodo();
 
@@ -213,6 +218,8 @@ async function loadTodos(event) {
   globalArr = [...globalArr, ...newLoadTodosArr];
 
   filterAndSearchTodo();
+
+  loader.style.display = 'none';
 
   offset = offset + 5;
 }
