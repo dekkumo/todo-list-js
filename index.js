@@ -155,6 +155,8 @@ searchBtn.addEventListener('click', clearInput);
 
 function clearInput(event) {
   searchInput.value = '';
+
+  filterAndSearchTodo();
 }
 
 
