@@ -19,22 +19,6 @@ function addTask(event) {
 
   const taskText = taskInput.value; // текст задачи из поля ввода
 
-  let taskHtml = `<li class="block__text">
-                      <div class="text__wrapper">
-                        <span>${taskText}</span>
-                      </div>
-                      <div class="button__wrapper">
-                        <button class="btn__icon complete">
-                          <img src="icons/yes.png" alt="pic">
-                        </button>
-                        <button class="btn__icon close">
-                          <img src="icons/no.png" alt="pic">
-                        </button>
-                      </div>
-                    </li>`
-
-  taskList.insertAdjacentHTML('beforeend', taskHtml);
-
 
   let id = Math.random();
 
@@ -46,17 +30,14 @@ function addTask(event) {
 
   globalArr.push(newObject);
 
-  
-  const todo = document.querySelectorAll('.block__text');
-  
-  todo[todo.length-1].querySelector('.close').addEventListener('click', (event) => closeTask(event, id));
-  todo[todo.length-1].querySelector('.complete').addEventListener('click', (event)=> completeTask(event, id));
+
+  filterAndSearchTodo();
   
 
   taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
   taskInput.focus();
 
-  saveToLocalStorage()
+  saveToLocalStorage();
 }
 
 function closeTask(event, id) {
@@ -175,7 +156,7 @@ function searchTodo(globalArrCopy) {
 }
 
 
-function filterAndSearchTodo(event) {
+function filterAndSearchTodo() {
   let globalArrCopy = [...globalArr];
 
   globalArrCopy = chooseSelect(globalArrCopy);
