@@ -78,10 +78,10 @@ body {
 }
 
 .container {
-  max-width: 1046px;
+  max-width: 505px;
+  width: 100%;
   padding: 50px 15px 0 15px;
   margin: 0 auto;
-  box-sizing: content-box;
 }
 
 .title {
@@ -93,18 +93,20 @@ body {
 }
 
 .form {
+  display: flex;
   position: relative;
 }
 
 .text {
   height: 35px;
-  width: 300px;
+  width: 60%;
   border: 1px solid rgb(57, 143, 124);
   border-radius: 5px;
   margin: 0 10px 85px 0;
 }
 
 input {
+  width: 100%;
   padding: 0 15px;
 }
 
@@ -112,7 +114,7 @@ input {
   background-color: rgb(57, 143, 124);
   color: #fff;
   height: 35px;
-  width: 55px;
+  width: 13%;
   padding: 5px;
   border-radius: 5px;
   font-weight: 500;
@@ -124,11 +126,6 @@ input {
 
 .block__text {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 35px;
-  width: 500px;
   font-size: 15px;
   font-weight: 500;
   padding: 0 48px 0 15px;
@@ -195,6 +192,7 @@ input {
 .form__select {
   text-align: center;
   height: 35px;
+  width: 23%;
   border-radius: 5px;
   background-color: rgb(121, 173, 162);
   margin: 0 0 0 15px;
@@ -241,7 +239,7 @@ input {
 .load__button {
   position: absolute;
   top: 60px;
-  right: 130px;
+  right: 123px;
   height: 25px;
   width: 110px;
   border-radius: 5px;
@@ -267,4 +265,46 @@ input {
 
 ._show {
   opacity: 1;
+}
+
+@media (max-width: 470px) {
+  .text {
+    margin: 0 10px 115px 0;
+  }
+  .load__button {
+    top: 100px;
+    left: 0;
+  }
+}
+@media (max-width: 425px) {
+  .title {
+    font-size: 32px;
+  }
+  .text {
+    margin: 0 0px 160px 0;
+    width: 100%;
+  }
+  .form__select {
+    height: 25px;
+    width: 30%;
+    position: absolute;
+    top: 100px;
+    right: 0;
+  }
+  .button {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    right: 0px;
+  }
+  .search__text {
+    top: 100px;
+  }
+  .search__button {
+    top: 103px;
+  }
+  .load__button {
+    top: 137px;
+    left: 0;
+  }
 }/*# sourceMappingURL=style.css.map */
