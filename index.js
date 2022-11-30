@@ -41,7 +41,7 @@ function addTask(event) {
   let newObject = {
     id: id,
     text: taskText,
-    type: 'uncompleted',
+    isComplete: false,
   };
 
   globalArr.push(newObject);
@@ -75,8 +75,8 @@ function completeTask(event, id) {
   elementCheck.classList.toggle('_checked');
 
   globalArr.forEach((el, i, arr) => {
-    if (el.id === id && el.type === 'uncompleted') return el.type = 'completed';
-    if (el.id === id && el.type === 'completed') return el.type = 'uncompleted';
+    if (el.id === id && el.isComplete === false) return el.isComplete = true;
+    if (el.id === id && el.isComplete === true) return el.isComplete = false;
   })
 
   saveToLocalStorage()
@@ -95,7 +95,7 @@ function renderTodos(globalArr) {
 
 
   globalArr.forEach((el, i, arr) => {
-    let taskHtml = `<li class="block__text ${el.type === 'completed' ? '_checked' : ''}">
+    let taskHtml = `<li class="block__text ${el.isComplete === true ? '_checked' : ''}">
                       <div class="text__wrapper" >
                         <span>${el.text}</span>
                       </div>
@@ -133,12 +133,12 @@ function chooseSelect(globalArrCopy) {
       break;
     case 'Completed':
       sortedTodos = globalArrCopy.filter((el, i, arr) => {
-        return el.type === 'completed';
+        return el.isComplete === true;
       })
       break;
     case 'Uncompleted':
       sortedTodos = globalArrCopy.filter((el, i, arr) => {
-        return el.type === 'uncompleted';
+        return el.isComplete === false;
       })
       break;
   }
@@ -187,3 +187,51 @@ function filterAndSearchTodo(event) {
 function saveToLocalStorage() {
   localStorage.setItem('globalArr', JSON.stringify(globalArr));
 }
+
+
+const portionSize = 5;
+
+let offset = 0;
+
+
+const loadButton = document.querySelector('.load__button');
+
+loadButton.addEventListener('click', loadTodos);
+
+async function loadTodos(event) {
+
+  const loader = document.querySelector('.loading');
+
+  loader.classList.add('_show');
+
+  let loadTodosArr = [];
+  loadTodosArr = await getTodo();
+
+  let newLoadTodosArr = loadTodosArr.map((el, i, arr) => {
+    return {
+      id: el.id,
+      text: el.title,
+      isComplete: el.completed,
+    };
+  })
+
+  globalArr = [...globalArr, ...newLoadTodosArr];
+
+  filterAndSearchTodo();
+
+  loader.style.display = 'none';
+
+  offset = offset + 5;
+}
+
+
+async function getTodo() {
+  try {
+    let response = await fetch(`https://jsonplaceholder.typicode.com/todos?_start=${offset}&_limit=${portionSize}`);
+    let todos = await response.json();
+    return todos;
+  } catch(err) {
+    alert('Ошибка загрузки');
+  }
+}
+getTodo();
