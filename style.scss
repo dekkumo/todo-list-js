@@ -102,6 +102,7 @@ input {
   background-color: rgb(185, 216, 165);
 }
 .text__wrapper {
+  white-space: nowrap;
   height: 35px;
   width: 95%;
   overflow-x: scroll;

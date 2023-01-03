@@ -149,7 +149,8 @@ function searchTodo(globalArrCopy) {
   let searchArr = [];
 
   searchArr = globalArrCopy.filter(el => {
-    return el.text.includes(searchText);
+    let lowerText = el.text.toLowerCase()
+    return lowerText.includes(searchText);
   })
 
   return searchArr;
