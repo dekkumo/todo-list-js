@@ -15,9 +15,9 @@ if (localStorage.getItem('globalArr')) {
 form.addEventListener('submit', addTask);
 
 function addTask(event) {
-  event.preventDefault(); // отменяет стандартное поведение
+  event.preventDefault();
 
-  const taskText = taskInput.value; // текст задачи из поля ввода
+  const taskText = taskInput.value;
 
 
   let id = Math.random();
@@ -34,7 +34,7 @@ function addTask(event) {
   filterAndSearchTodo();
   
 
-  taskInput.value = '' // очистка поля ввода и возвращение на него фокуса
+  taskInput.value = ''
   taskInput.focus();
 
   saveToLocalStorage();
